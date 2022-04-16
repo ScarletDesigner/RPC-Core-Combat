@@ -10,6 +10,16 @@ public class Portal : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
-            SceneManager.LoadScene("Sandbox 2");
+        {
+            StartCoroutine(Transition());
+        }
+    }
+
+    private IEnumerator Transition()
+    {
+        DontDestroyOnLoad(this.gameObject);
+        yield return SceneManager.LoadSceneAsync(sceneToLoad);
+        print("Scene Loaded");
+        Destroy(this.gameObject);
     }
 }
